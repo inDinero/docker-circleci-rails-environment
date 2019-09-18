@@ -10,6 +10,7 @@ RUN { \
   } | debconf-set-selections \
   && apt-get update \
   && apt-get install -y cmake libmagic-dev nodejs mongodb openjdk-8-jre-headless mysql-server libmysqlclient-dev redis-server curl xvfb \
+  && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld \
   && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
   && chmod 777 /var/run/mysqld \
@@ -19,8 +20,9 @@ RUN { \
   && echo '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/mysql/conf.d/docker.cnf \
   && curl -o /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1 \
   && chmod 777 /usr/local/bin/phantomjs \
-  && rm -rf /var/lib/apt/lists/* \
-  && gem install bundler -v 1.17.3
+  && gem install bundler -v 1.17.3 \
+  # https://alexvanderbist.com/posts/2018/fixing-imagick-error-unauthorized
+  && sed -E 's@\s*<policy domain="coder" rights="none" pattern="PDF" />@  <policy domain="coder" rights="read|write" pattern="PDF" />@g' /etc/ImageMagick-6/policy.xml
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
