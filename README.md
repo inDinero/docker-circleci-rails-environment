@@ -14,7 +14,7 @@ Dockerfile to build a Rails 3 test environment for CircleCI 2.0 which is the bas
 Build the image from the Dockerfile.
 
 ```bash
-docker build -t indineroengineering/circleci-rails-environment:0.0.5
+docker build -t indineroengineering/circleci-rails-environment:0.0.6
 ```
 
 Run the built image.
