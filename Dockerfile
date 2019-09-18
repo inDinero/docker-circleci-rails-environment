@@ -9,7 +9,7 @@ RUN { \
     echo mysql-community-server mysql-community-server/remove-test-db select false; \
   } | debconf-set-selections \
   && apt-get update \
-  && apt-get install -y cmake libmagic-dev nodejs mongodb openjdk-8-jre-headless mysql-server libmysqlclient-dev redis-server curl \
+  && apt-get install -y cmake libmagic-dev nodejs mongodb openjdk-8-jre-headless mysql-server libmysqlclient-dev redis-server curl xvfb \
   && rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld \
   && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
   && chmod 777 /var/run/mysqld \
