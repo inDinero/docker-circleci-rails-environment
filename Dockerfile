@@ -1,6 +1,14 @@
-FROM ubuntu:16.04
+FROM indineroengineering/ruby:2.1.5-bionic
 
 ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update \
+  && apt-get install -y cmake libmagic-dev nodejs fonts-liberation vim \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV BUNDLE_JOBS=2
+ENV BUNDLER_VERSION=1.17.3
+RUN gem install bundler -v $BUNDLER_VERSION
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
 RUN echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
