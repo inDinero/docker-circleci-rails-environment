@@ -22,7 +22,7 @@ RUN { \
   && chmod 777 /usr/local/bin/phantomjs \
   && gem install bundler -v 1.17.3 \
   # https://alexvanderbist.com/posts/2018/fixing-imagick-error-unauthorized
-  && sed -E 's@\s*<policy domain="coder" rights="none" pattern="PDF" />@  <policy domain="coder" rights="read|write" pattern="PDF" />@g' /etc/ImageMagick-6/policy.xml
+  && sed -iE 's@\s*<policy domain="coder" rights="none" pattern="PDF" />@  <policy domain="coder" rights="read|write" pattern="PDF" />@g' /etc/ImageMagick-6/policy.xml
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
